@@ -6,48 +6,6 @@ import datetime
 import os
 
 
-def start():
-    global loan_amount_getter, interest_rate_getter, main_frame, main_window, term_getter, loan_amount_entry, \
-        interest_rate_entry, term_entry
-    main_window = Tk()
-    main_window.resizable(width=True, height=True)
-    main_window.geometry('500x200+100+50')
-    main_window.title('Repayment schedule')
-
-    loan_amount_getter = StringVar()  # получаем сумму кредита из ввода
-    interest_rate_getter = StringVar()  # получаем размер % ставки из ввода
-    term_getter = StringVar()  # получаем срок из ввода
-
-    # Frames
-    main_frame = ttk.Frame(master=main_window, relief=SUNKEN, padding='10')
-    main_window.columnconfigure(0, weight=1)
-    main_window.rowconfigure(0, weight=1)
-    main_frame.grid(row=0, column=0, sticky=(N, W, E, S))
-
-    # Interface objects:
-    ttk.Label(master=main_frame, text='Введите сумму кредита:', font=('Arial', 11)).grid(row=0, column=0, sticky=W)
-    loan_amount_entry = ttk.Entry(master=main_frame, textvariable=loan_amount_getter)
-
-    loan_amount_entry.grid(row=0, column=1, sticky=E)
-
-    ttk.Label(master=main_frame, text='Введите процентную ставку:', font=('Arial', 11)).grid(row=1, column=0, sticky=W)
-    interest_rate_entry = ttk.Entry(master=main_frame, textvariable=interest_rate_getter)
-
-    interest_rate_entry.grid(row=1, column=1, sticky=E)
-
-    ttk.Label(master=main_frame, text='Введите срок кредита:', font=('Arial', 11)).grid(row=2, column=0, sticky=W)
-    term_entry = ttk.Entry(master=main_frame, textvariable=term_getter)
-    term_entry.insert(0, '')
-    term_entry.grid(row=2, column=1, sticky=E)
-
-    ttk.Button(master=main_frame, text='Сформировать график', command=calculate).grid(row=3, column=1, sticky=E)
-
-    for child in main_frame.winfo_children():
-        child.grid_configure(padx=5, pady=5)
-
-    main_window.mainloop()
-
-
 def calculate():
     total_loan_amount = 0  # общая сумма кредита
     total_interest = 0  # общая выплаченная сумма процентов
@@ -186,4 +144,40 @@ def restart():
 
 
 if __name__ == '__main__':
-    start()
+    main_window = Tk()
+    main_window.resizable(width=True, height=True)
+    main_window.geometry('500x200+100+50')
+    main_window.title('Repayment schedule')
+
+    loan_amount_getter = StringVar()  # получаем сумму кредита из ввода
+    interest_rate_getter = StringVar()  # получаем размер % ставки из ввода
+    term_getter = StringVar()  # получаем срок из ввода
+
+    # Frames
+    main_frame = ttk.Frame(master=main_window, relief=SUNKEN, padding='10')
+    main_window.columnconfigure(0, weight=1)
+    main_window.rowconfigure(0, weight=1)
+    main_frame.grid(row=0, column=0, sticky=(N, W, E, S))
+
+    # Interface objects:
+    ttk.Label(master=main_frame, text='Введите сумму кредита:', font=('Arial', 11)).grid(row=0, column=0, sticky=W)
+    loan_amount_entry = ttk.Entry(master=main_frame, textvariable=loan_amount_getter)
+
+    loan_amount_entry.grid(row=0, column=1, sticky=E)
+
+    ttk.Label(master=main_frame, text='Введите процентную ставку:', font=('Arial', 11)).grid(row=1, column=0, sticky=W)
+    interest_rate_entry = ttk.Entry(master=main_frame, textvariable=interest_rate_getter)
+
+    interest_rate_entry.grid(row=1, column=1, sticky=E)
+
+    ttk.Label(master=main_frame, text='Введите срок кредита:', font=('Arial', 11)).grid(row=2, column=0, sticky=W)
+    term_entry = ttk.Entry(master=main_frame, textvariable=term_getter)
+    term_entry.insert(0, '')
+    term_entry.grid(row=2, column=1, sticky=E)
+
+    ttk.Button(master=main_frame, text='Сформировать график', command=calculate).grid(row=3, column=1, sticky=E)
+
+    for child in main_frame.winfo_children():
+        child.grid_configure(padx=5, pady=5)
+
+    main_window.mainloop()
