@@ -43,13 +43,19 @@ def calculate():
             days_year = days_in_year(year)
             days_month = days_in_month(year, month, repayment_day)
 
-            interest = loan_debt * (interest_rate / days_year) * days_month  # сумма процентов в сумме платежа
+            interest = round(loan_debt * (interest_rate / days_year) * days_month, 2)  # сумма процентов в сумме платежа
 
-            loan_repayment = annual_payment - interest  # размер погашения ОД в сумме платежа
+            loan_repayment = round(annual_payment - interest, 2)  # размер погашения ОД в сумме платежа
 
             if loan_repayment > loan_debt:
                 loan_repayment = loan_debt
-            loan_debt -= loan_repayment
+
+            if i == term - 1:  # последний платеж должен быть скорректирован с учетом остатка задолженности
+                # для избежания переплаты или недоплаты
+                loan_repayment = loan_debt
+            else:
+                loan_debt -= round(loan_repayment, 2)
+
             payment = interest + loan_repayment  # Для корректного отображения последнего платежа
 
             total_loan_amount += loan_repayment
